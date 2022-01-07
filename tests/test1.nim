@@ -1,10 +1,12 @@
 import unittest
 import zero_functional
+import tables
 
 import v
 
 test "init":
   check initV[int](5).len == 5
+  check initV[byte](5).len == 5
 
 test "add":
   let v = @[1,2,3]
@@ -32,10 +34,7 @@ test "cmp":
   check v *<= 12
 
 test "group":
-  let v = @[1,2,1,1,2]
-  let c = v.toCounter()
-  echo c
+  check @[1,2,1,1,2].count() == initCounter({1:3, 2:2})
 
 test "groupByte":
-  let v = @[byte(1),2,1,1,2] 
-  echo v.toCounter()
+  check @[byte(1),2,1,1,2].count() == initCounter({byte(1):3, byte(2):2})

@@ -81,17 +81,32 @@ type Counter*[T] = object
   else:
     ct: CountTable[T]
 
-proc `$`*[T](c: Counter): string =
-  when T is byte:
-    "aaa"
-  else:
-    $c.ct
+proc initCounter*[T: byte](t: openArray[(T, int)]): Counter[T] =
+  for (idx, v) in t:
+    result.flat256[idx] = v
 
-proc toCounter*[T: byte](x: openArray[T]): Counter[T] =
+proc initCounter*[T](t: openArray[(T, int)]): Counter[T] =
+  for (x, v) in t:
+    result.ct.inc(x, v) 
+
+proc `$`*[T: byte](c: Counter[T]): string =
+  result.add '{'
+  for i, x in c.flat256:
+    if x > 0:
+      if result.len > 1: result.add ", "
+      result.add $i & ": " & $x
+  result.add '}'
+
+proc count*[T: byte](x: openArray[T]): Counter[T] =
   for x in x:
     inc result.flat256[x]
 
-proc toCounter*[T](x: openArray[T]): Counter[T] =
+proc `$`*[T](c: Counter[T]): string =
+  $c.ct
+
+
+
+proc count*[T](x: openArray[T]): Counter[T] =
   Counter[T](ct: x.toCountTable)
 
 proc `[]`*[T](c: Counter[T], x: T): int =
