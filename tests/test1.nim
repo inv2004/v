@@ -1,8 +1,8 @@
+import vecs
+
 import unittest
 import zero_functional
 import tables
-
-import v
 
 test "init":
   check initV[int](5).len == 5

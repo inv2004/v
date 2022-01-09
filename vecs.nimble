@@ -11,3 +11,6 @@ srcDir        = "src"
 
 requires "nim >= 1.6.2"
 requires "zero_functional"
+
+task bench, "bench":
+  exec "nim c -d:release -r tests/bench1.nim"
