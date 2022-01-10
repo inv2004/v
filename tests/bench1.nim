@@ -17,27 +17,19 @@ for i in 0..v200.high:
   v200[i] = byte((10 + i div 200) mod 100)
 
 benchmark cfg:
-  # proc benchV2Count() {.measure.} =
-  #   assert v2.count.sum() == N
-  proc benchV2CountAVX2V1() {.measure.} =
-    assert v2.countAVX2V1().sum() == N
-  proc benchV2CountAVX2V2() {.measure.} =
-    assert v2.countAVX2V2().sum() == N
-  # proc benchV10Count() {.measure.} =
-  #   assert v10.count.sum() == N
-  proc benchV10CountAVX2V1() {.measure.} =
-    assert v10.countAVX2V1().sum() == N
-  proc benchV10CountAVX2V2() {.measure.} =
-    assert v10.countAVX2V2().sum() == N
-  # proc benchV100Count() {.measure.} =
-  #   assert v100.count.sum() == N
-  proc benchV100CountAVX2V1() {.measure.} =
-    assert v100.countAVX2V1().sum() == N
-  proc benchV100CountAVX2V2() {.measure.} =
-    assert v100.countAVX2V2().sum() == N
-  # proc benchV200Count() {.measure.} =
-  #   assert v200.count().sum() == N
-  proc benchV200CountAVX2V1() {.measure.} =
-    assert v200.countAVX2V1().sum() == N
-  proc benchV200CountAVX2V2() {.measure.} =
-    assert v200.countAVX2V2().sum() == N
+  proc counterV2() {.measure.} =
+    assert v2.counterCheck().sum() == N
+  proc counterV2AVX2() {.measure.} =
+    assert v2.counter().sum() == N
+  proc counterV10() {.measure.} =
+    assert v10.counter().sum() == N
+  proc counterV10AVX2() {.measure.} =
+    assert v10.counter().sum() == N
+  proc counterV100() {.measure.} =
+    assert v100.counter().sum() == N
+  proc counterV100AVX2() {.measure.} =
+    assert v100.counter().sum() == N
+  proc counterV200() {.measure.} =
+    assert v200.counter().sum() == N
+  proc counterV200AVX2() {.measure.} =
+    assert v200.counter().sum() == N

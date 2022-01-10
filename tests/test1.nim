@@ -36,13 +36,13 @@ test "cmp":
   check v *<= 12
 
 test "count":
-  check @[1,2,1,1,2].count() == initCounter({1:3, 2:2})
-  check @[1'u8,2,1,1,2].count() == initCounter({1'u8:3, 2'u8:2})
+  check @[1,2,1,1,2].counter() == initCounter({1:3, 2:2})
+  check @[1'u8,2,1,1,2].counter() == initCounter({1'u8:3, 2'u8:2})
 
 test "sum":
   check @[1,2,3,4,5].sum() == 15
   check @[1'u8,2,3,4,5].sum() == 15
 
 test "sumC":
-  check @[1000,2,3,4,5].count().sum() == 5
-  check @[1'u8,2,3,4,5].count().sum() == 5
+  check @[1000,2,3,4,5].counter().sum() == 5
+  check @[1'u8,2,3,4,5].counter().sum() == 5

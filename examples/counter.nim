@@ -1,6 +1,5 @@
 import vecs
 import vecs/avx2
-import random
 
 var a = initV[byte](1000000)
 for i in 0..a.high:
@@ -12,7 +11,6 @@ for i in 0..a.high:
 
 # let v = randV(32, byte(4)..byte(200))
 # echo a
-echo a.count()
-echo a.countAVX2V1()
-echo a.countAVX2V2()
+echo a.counterCheck()
+echo a.counter()
 
