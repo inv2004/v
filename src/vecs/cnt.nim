@@ -18,7 +18,7 @@ proc initCounter*[T](t: openArray[(T, int)]): Counter[T] =
     result.ct.inc(x, v) 
 
 proc `$`*[T: byte](c: Counter[T]): string =
-  result.add "b{"
+  result.add "Cnb{"
   let initLen = result.len
   for i, x in c.flat256:
     if x > 0:
@@ -40,10 +40,10 @@ proc counter*[T: byte](x: openArray[T]): Counter[T] =
     let ymm = loadu_byte(unsafeAddr x[i])
     let maskRepeat = set1_epi8(x[i])
     if avx.width == popcnt_u32 movemask_epi8 cmpeq_epi8(ymm, maskRepeat):
-      result.flat256[x[i]] += 32
+      result.flat256[x[i]] += avx.width
     elif 0 < popcnt_u32 movemask_epi8 cmpgt_epi8(ymm, mask3):
-        unroll for off in 0..<(avx.width):
-          result.flat256[extract_epi8(ymm, off)].inc
+      unroll for off in 0..<(avx.width):
+        result.flat256[extract_epi8(ymm, off)].inc
     else:
       result.flat256[0] += popcnt_u32 movemask_epi8 cmpeq_epi8(ymm, mask0)
       result.flat256[1] += popcnt_u32 movemask_epi8 cmpeq_epi8(ymm, mask1)
@@ -62,7 +62,7 @@ proc sum*[T](c: Counter[T]): int =
     result += x
 
 proc `$`*[T](c: Counter[T]): string =
-  $c.ct
+  "Cnt" & $c.ct
 
 proc counter*[T](x: openArray[T]): Counter[T] =
   Counter[T](ct: x.toCountTable)

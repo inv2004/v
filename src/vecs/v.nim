@@ -1,5 +1,3 @@
-import c
-
 import random
 import tables
 

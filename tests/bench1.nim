@@ -16,20 +16,25 @@ var v200 = initV[byte](N)
 for i in 0..v200.high:
   v200[i] = byte((10 + i div 200) mod 100)
 
+let v9 = randV(N, 0'u8..9'u8)
+let f = randV(N, 2.3'f32)
+
 benchmark cfg:
-  proc counterV2() {.measure.} =
-    assert v2.counterCheck().sum() == N
-  proc counterV2AVX2() {.measure.} =
-    assert v2.counter().sum() == N
-  proc counterV10() {.measure.} =
-    assert v10.counter().sum() == N
-  proc counterV10AVX2() {.measure.} =
-    assert v10.counter().sum() == N
-  proc counterV100() {.measure.} =
-    assert v100.counter().sum() == N
-  proc counterV100AVX2() {.measure.} =
-    assert v100.counter().sum() == N
-  proc counterV200() {.measure.} =
-    assert v200.counter().sum() == N
-  proc counterV200AVX2() {.measure.} =
-    assert v200.counter().sum() == N
+  # proc counterV2() {.measure.} =
+  #   assert v2.counterCheck().sum() == N
+  # proc counterV2AVX2() {.measure.} =
+  #   assert v2.counter().sum() == N
+  # proc counterV10() {.measure.} =
+  #   assert v10.counter().sum() == N
+  # proc counterV10AVX2() {.measure.} =
+  #   assert v10.counter().sum() == N
+  # proc counterV100() {.measure.} =
+  #   assert v100.counter().sum() == N
+  # proc counterV100AVX2() {.measure.} =
+  #   assert v100.counter().sum() == N
+  # proc counterV200() {.measure.} =
+  #   assert v200.counter().sum() == N
+  # proc counterV200AVX2() {.measure.} =
+  #   assert v200.counter().sum() == N
+  proc averagerV2() {.measure.} =
+    assert v9.averager(f).sum() > 0.0

@@ -28,6 +28,11 @@ test "rand":
   check v *>= 5
   check v *<= 11
 
+  let b = randV(100, 5'u8..10'u8)
+  check b.len == 100
+  check v *>= 5
+  check v *<= 11
+
 test "cmp":
   var v = @[10,11,12]
   check v *> 9
