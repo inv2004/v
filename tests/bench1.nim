@@ -2,24 +2,25 @@ import vecs
 
 import criterion
 
-const N = 9_710_124
+# const N = 9_710_124
+const P = 365
+const N = 380000
 
 var cfg = newDefaultConfig()
 cfg.brief = true
 cfg.verbose = true
-cfg.minSamples = 10
+cfg.budget = 1.0
+cfg.minSamples = 1
 
-let v2 = randV(N, byte(1)..byte(2))
-let v10 = randV(N, byte(1)..byte(10))
-let v100 = randV(N, byte(1)..byte(100))
-var v200 = initV[byte](N)
-for i in 0..v200.high:
-  v200[i] = byte((10 + i div 200) mod 100)
-
-let v9 = randV(N, 0'u8..9'u8)
-let f = randV(N, 2.3'f32)
+var tbl: seq[(int16, seq[byte])]
+for y in 1'i16..P:
+  tbl.add (y, randV(N, 0'u8..3'u8))
 
 benchmark cfg:
+  proc mergedCounter() {.measure.} =
+    doAssert tbl.mergedCounter().sum() == N*P
+  # proc averager() {.measure.} =
+    # assert
   # proc counterV2() {.measure.} =
   #   assert v2.counterCheck().sum() == N
   # proc counterV2AVX2() {.measure.} =
@@ -36,5 +37,7 @@ benchmark cfg:
   #   assert v200.counter().sum() == N
   # proc counterV200AVX2() {.measure.} =
   #   assert v200.counter().sum() == N
-  proc averagerV2() {.measure.} =
-    assert v9.averager(f).sum() > 0.0
+  # proc averagerV2() {.measure.} =
+  #   assert v9.averager(f).sum() > 0.0
+  # proc counter2() {.measure.} =
+  #   assert v2.counter2(v10).len > 0

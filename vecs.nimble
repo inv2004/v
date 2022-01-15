@@ -14,4 +14,4 @@ requires "unrolled"
 
 task bench, "bench":
   # exec "nim c -d:danger -r tests/bench1.nim"
-  exec """nim c --opt:speed --passC:'-flto -march=native -Ofast' --passL:'-flto -march=native -Ofast' -d:release -r tests/bench1.nim"""
+  exec """nim c --opt:speed --passC:'-flto -march=native -Ofast' --passL:'-flto -march=native -Ofast' -d:danger -r tests/bench1.nim"""

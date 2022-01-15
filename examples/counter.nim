@@ -1,15 +1,16 @@
 import vecs
-import vecs/avx2
+import tables
 
-var a = initV[byte](32)
-for i in 0..a.high:
-  a[i] = byte(i div 10)
+type Tbl = object
+  v: seq[byte]
 
-# let maskHigh = set1_epi8(3)
-# let ymm = loadu_byte(addr a[0])
-# echo popcnt_u32 movemask_epi8 cmpgt_epi8(ymm, maskHigh)
+type Parted = seq[(int16, Tbl)]
 
-echo a
-echo a.counterCheck()
-echo a.counter()
+const P = 365
+const N = 380000
 
+var tbl: Parted
+for y in 1..P:
+  tbl.add (2000+int16(y), Tbl(v: randV(N, byte(1)..byte(2))))
+
+echo tbl.counter()

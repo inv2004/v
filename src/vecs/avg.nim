@@ -28,6 +28,11 @@ proc averager*[T: byte, G](a: openArray[T], b: openArray[G]): Averager[T,G] =
     result.flat256[x].inc
     result.flat256s[x] += b[i]
 
+proc mergedAverager*[T:byte;G;P;S:seq[T]|array[int,T]](a: openArray[(P, S)]): Averager[T,G] =
+  for (p, t) in a:
+    for i, v in averager(t).flat256:
+      result.flat256[i] += v
+
 proc sum*[T: byte; G](c: Averager[T,G]): G =
   for i, s in c.flat256s:
     if c.flat256[i] > 0:
